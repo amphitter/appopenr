@@ -3,472 +3,449 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Opening YouTube...</title>
-
-<meta http-equiv="refresh" content="2;url=https://www.youtube.com/watch?v=SS486HUj9yg">
-
+<title>Opening YouTube…</title>
+<meta http-equiv="refresh" content="1;url=https://www.youtube.com/watch?v=SS486HUj9yg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
-background:#020617;
-
+:root {
+  --red:        #ff0000;
+  --red-glow:   rgba(255, 0, 0, 0.35);
+  --red-dim:    rgba(255, 0, 0, 0.12);
+  --bg:         #04060f;
+  --card-bg:    rgba(255, 255, 255, 0.042);
+  --card-border:rgba(255, 255, 255, 0.085);
+  --text:       #f0f4ff;
+  --text-muted: #6b7d96;
+  --subtle:     rgba(255, 255, 255, 0.055);
+  --font-display: 'Outfit', sans-serif;
+  --font-body:    'Inter', sans-serif;
 }
 
-/* Background */
-
-.bg{
-
-position:fixed;
-inset:0;
-
-background-image:url("https://i9.ytimg.com/vi/SS486HUj9yg/sddefault.jpg?v=6a38eff4&sqp=CODp49EG&rs=AOn4CLB4719WMqzCa_sMYYpmxqTfMCl8zw");
-
-background-size:cover;
-background-position:center;
-
-filter:blur(30px) brightness(.25);
-
-transform:scale(1.2);
-
+html, body {
+  height: 100%;
 }
 
-/* Gradient Overlay */
-
-.overlay{
-
-position:fixed;
-inset:0;
-
-background:
-linear-gradient(to bottom,
-rgba(2,6,23,.45),
-rgba(2,6,23,.90));
-
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: var(--font-body);
+  padding: 16px;
+  overflow: hidden;
 }
 
-/* Card */
-
-.card{
-
-position:relative;
-z-index:5;
-
-width:min(92%,420px);
-
-background:rgba(255,255,255,.06);
-
-border:1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(18px);
-
-border-radius:28px;
-
-padding:24px;
-
-box-shadow:
-0 25px 70px rgba(0,0,0,.45);
-
-animation:fade .8s ease;
-
+/* ── Background ── */
+.bg-blur {
+  position: fixed;
+  inset: -10%;
+  background-image: url("https://i9.ytimg.com/vi/SS486HUj9yg/sddefault.jpg?v=6a38eff4&sqp=CODp49EG&rs=AOn4CLB4719WMqzCa_sMYYpmxqTfMCl8zw");
+  background-size: cover;
+  background-position: center;
+  filter: blur(48px) brightness(0.14) saturate(1.6);
+  z-index: 0;
 }
 
-@keyframes fade{
-
-from{
-
-opacity:0;
-transform:translateY(30px);
-
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% -5%, rgba(255,0,0,0.09) 0%, transparent 70%),
+    linear-gradient(to bottom, rgba(4,6,15,0.4) 0%, rgba(4,6,15,0.97) 100%);
+  z-index: 1;
 }
 
-to{
-
-opacity:1;
-transform:none;
-
+/* ── Card ── */
+.card {
+  position: relative;
+  z-index: 10;
+  width: min(100%, 410px);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: clamp(18px, 5.5vw, 26px);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.035),
+    0 24px 80px rgba(0,0,0,0.55);
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
-/* Profile */
-
-.profile{
-
-display:flex;
-align-items:center;
-gap:14px;
-
-margin-bottom:18px;
-
+/* ── Channel row ── */
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 15px;
 }
 
-.profile img{
-
-width:54px;
-height:54px;
-
-border-radius:50%;
-
-border:2px solid rgba(255,255,255,.2);
-
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-.profile h3{
-
-color:#fff;
-font-size:18px;
-
+.channel-name {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 3.8vw, 16px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.015em;
 }
 
-.profile span{
-
-color:#94a3b8;
-font-size:13px;
-
+.channel-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.01em;
 }
 
-/* Thumbnail */
-
-.thumb{
-
-position:relative;
-
-overflow:hidden;
-
-border-radius:18px;
-
-margin-bottom:18px;
-
+/* Pill badge */
+.badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--red-dim);
+  border: 1px solid rgba(255,0,0,0.22);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  color: #ff6060;
+  letter-spacing: 0.01em;
 }
 
-.thumb img{
-
-width:100%;
-display:block;
-
-transition:.5s;
-
+.badge .dot {
+  width: 6px;
+  height: 6px;
+  background: #ff0000;
+  border-radius: 50%;
+  animation: blink 1.4s ease-in-out infinite;
 }
 
-.thumb:hover img{
-
-transform:scale(1.05);
-
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.2; }
 }
 
-/* Play Button */
-
-.play{
-
-position:absolute;
-
-left:50%;
-top:50%;
-
-transform:translate(-50%,-50%);
-
-width:72px;
-height:72px;
-
-border-radius:50%;
-
-background:#ff0000;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-font-size:30px;
-
-color:white;
-
-box-shadow:
-
-0 0 40px rgba(255,0,0,.45);
-
-animation:pulse 2s infinite;
-
+/* ── Thumbnail ── */
+.thumb-link {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  aspect-ratio: 16 / 9;
+  background: #0d1020;
 }
 
-@keyframes pulse{
-
-0%{
-
-transform:translate(-50%,-50%) scale(1);
-
+.thumb-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
 }
 
-50%{
-
-transform:translate(-50%,-50%) scale(1.08);
-
+.thumb-link:hover img {
+  transform: scale(1.04);
 }
 
-100%{
-
-transform:translate(-50%,-50%) scale(1);
-
+.thumb-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 55%, transparent 100%);
 }
 
+/* Play button */
+.play-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Text */
-
-h1{
-
-font-size:22px;
-color:white;
-margin-bottom:8px;
-
+.play-circle {
+  width: clamp(54px, 16vw, 66px);
+  height: clamp(54px, 16vw, 66px);
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 0 var(--red-glow);
+  animation: pulse 2.2s ease-in-out infinite;
+  transition: transform 0.2s ease;
 }
 
-p{
-
-color:#94a3b8;
-line-height:1.6;
-
+.thumb-link:hover .play-circle {
+  transform: scale(1.1);
 }
 
-/* Progress */
-
-.progress{
-
-margin-top:24px;
-
-height:7px;
-
-border-radius:100px;
-
-background:rgba(255,255,255,.08);
-
-overflow:hidden;
-
+.play-circle svg {
+  width: clamp(22px, 6vw, 27px);
+  height: clamp(22px, 6vw, 27px);
+  fill: white;
+  margin-left: 3px;
 }
 
-.bar{
-
-height:100%;
-
-width:0;
-
-background:#ff0000;
-
-animation:loading 2s linear forwards;
-
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0  0   var(--red-glow); }
+  50%      { box-shadow: 0 0 0 16px rgba(255,0,0,0); }
 }
 
-@keyframes loading{
-
-to{
-
-width:100%;
-
+/* ── Text ── */
+.video-title {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 4.5vw, 20px);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin-bottom: 7px;
 }
 
+.video-desc {
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  color: var(--text-muted);
+  line-height: 1.65;
 }
 
-/* Timer */
-
-.timer{
-
-margin-top:12px;
-
-text-align:center;
-
-color:#cbd5e1;
-
-font-size:14px;
-
+/* ── Progress bar ── */
+.progress-area {
+  margin-top: 18px;
 }
 
-/* Buttons */
-
-.actions{
-
-display:flex;
-gap:10px;
-
-margin-top:24px;
-
+.progress-track {
+  height: 4px;
+  border-radius: 99px;
+  background: var(--subtle);
+  overflow: hidden;
 }
 
-.actions a{
-
-flex:1;
-
-text-align:center;
-
-padding:12px;
-
-border-radius:14px;
-
-text-decoration:none;
-
-font-weight:600;
-
-transition:.3s;
-
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #cc0000, #ff4444);
+  box-shadow: 0 0 10px rgba(255,0,0,0.6);
+  animation: fill 1s linear forwards;
 }
 
-.youtube{
+@keyframes fill { to { width: 100%; } }
 
-background:#ff0000;
-color:white;
-
+.timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 9px;
 }
 
-.youtube:hover{
-
-background:#ff2020;
-
+.timer-label {
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
-.instagram{
-
-background:rgba(255,255,255,.08);
-color:white;
-
+.timer-label b {
+  color: #c5cde0;
+  font-weight: 500;
 }
 
-.instagram:hover{
-
-background:rgba(255,255,255,.14);
-
+.timer-skip {
+  font-size: 12px;
+  color: #ff5050;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
-.footer{
+.timer-skip:hover { color: #ff2020; }
 
-margin-top:18px;
-
-text-align:center;
-
-font-size:12px;
-
-color:#64748b;
-
+/* ── Buttons ── */
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 16px;
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: clamp(10px, 3vw, 13px) 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: clamp(13px, 3.8vw, 15px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: transform 0.17s ease, filter 0.17s ease, box-shadow 0.17s ease;
+}
+
+.btn:hover  { transform: translateY(-2px); filter: brightness(1.1); }
+.btn:active { transform: scale(0.96); }
+
+.btn-yt {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 4px 22px rgba(255,0,0,0.28);
+}
+
+.btn-ig {
+  background: var(--subtle);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 11.5px;
+  color: rgba(107, 125, 150, 0.7);
+}
+
+/* ── Responsive tweaks ── */
+@media (max-width: 360px) {
+  .badge { display: none; }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 650px) {
+  .card { padding: 14px; }
+  .video-desc { display: none; }
+  .progress-area { margin-top: 12px; }
+  .actions { margin-top: 12px; }
+  .footer { margin-top: 10px; }
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  .card           { animation: none; }
+  .play-circle    { animation: none; }
+  .progress-fill  { animation: none; width: 100%; }
+  .badge .dot     { animation: none; }
+}
+
+.btn:focus-visible,
+.thumb-link:focus-visible,
+.timer-skip:focus-visible {
+  outline: 2px solid #ff6060;
+  outline-offset: 3px;
+}
 </style>
-
 </head>
-
 <body>
 
-<div class="bg"></div>
-<div class="overlay"></div>
+<div class="bg-blur"></div>
+<div class="bg-overlay"></div>
 
 <div class="card">
 
-<div class="profile">
+  <!-- Channel row -->
+  <div class="channel">
+    <img class="avatar"
+         src="https://yt3.googleusercontent.com/i_zOIUFg7_0a_mO1tpU8xOTJAF60te2Lv3oA3KiMHFyL64gqOMXShRmnc4pMflBXpJ6MjX1v1Q=s160-c-k-c0x00ffffff-no-rj"
+         alt="Devansh Lags">
+    <div>
+      <div class="channel-name">Devansh Lags</div>
+      <div class="channel-sub">Engineering · AI · Startups · Vlogs</div>
+    </div>
+    <div class="badge">
+      <span class="dot"></span>New Video
+    </div>
+  </div>
 
-<img src="https://yt3.googleusercontent.com/i_zOIUFg7_0a_mO1tpU8xOTJAF60te2Lv3oA3KiMHFyL64gqOMXShRmnc4pMflBXpJ6MjX1v1Q=s160-c-k-c0x00ffffff-no-rj" alt="">
+  <!-- Thumbnail -->
+  <a class="thumb-link" href="https://www.youtube.com/watch?v=SS486HUj9yg">
+    <img
+      src="https://i9.ytimg.com/vi/SS486HUj9yg/sddefault.jpg?v=6a38eff4&sqp=CODp49EG&rs=AOn4CLB4719WMqzCa_sMYYpmxqTfMCl8zw"
+      alt="A Day at Microsoft – thumbnail">
+    <div class="thumb-gradient"></div>
+    <div class="play-wrap">
+      <div class="play-circle">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+    </div>
+  </a>
 
-<div>
+  <!-- Title & desc -->
+  <h1 class="video-title">🏢 A Day at Microsoft</h1>
+  <p class="video-desc">
+    Attended a Microsoft event, met amazing developers, networked with students,
+    and explored the Microsoft community. You won't want to miss this one!
+  </p>
 
-<h3>Devansh Lags</h3>
-<span>Engineering • AI • Startups • Vlogs</span>
+  <!-- Progress -->
+  <div class="progress-area">
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="timer-row">
+      <span class="timer-label">Redirecting in <b><span id="count">1</span>s</b></span>
+      <a class="timer-skip" href="https://www.youtube.com/watch?v=SS486HUj9yg">Skip →</a>
+    </div>
+  </div>
 
-</div>
+  <!-- Buttons -->
+  <div class="actions">
+    <a class="btn btn-yt" href="https://www.youtube.com/watch?v=SS486HUj9yg">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      Watch Now
+    </a>
+    <a class="btn btn-ig" href="https://instagram.com/amp.hitter">
+      Instagram
+    </a>
+  </div>
 
-</div>
-
-<div class="thumb">
-
-<img src="https://i9.ytimg.com/vi/SS486HUj9yg/sddefault.jpg?v=6a38eff4&sqp=CODp49EG&rs=AOn4CLB4719WMqzCa_sMYYpmxqTfMCl8zw">
-
-<div class="play">▶</div>
-
-</div>
-
-<h1>🏢 A Day at Microsoft</h1>
-
-<p>
-
-Thanks for visiting! 🚀<br><br>
-
-You're about to watch my latest vlog where I share my experience attending a Microsoft event, meeting amazing developers, networking with students, and exploring the Microsoft community.
-
-</p>
-
-<div class="progress">
-
-<div class="bar"></div>
-
-</div>
-
-<div class="timer">
-
-Redirecting to YouTube in <span id="count">2</span>s...
-
-</div>
-
-<div class="actions">
-
-<a class="youtube"
-href="https://www.youtube.com/watch?v=SS486HUj9yg">
-
-▶ Open Now
-
-</a>
-
-<a class="instagram"
-href="https://instagram.com/amp.hitter">
-
-📷 Instagram
-
-</a>
-
-</div>
-
-<div class="footer">
-
-Thanks for supporting ❤️<br>
-Don't forget to Subscribe!
-
-</div>
+  <p class="footer">Thanks for the support ❤️ &nbsp;·&nbsp; Don't forget to subscribe!</p>
 
 </div>
 
 <script>
+  const el = document.getElementById('count');
+  let s = 1;
 
-let seconds=2;
-
-const counter=document.getElementById("count");
-
-const interval=setInterval(()=>{
-
-seconds--;
-
-if(seconds<=0){
-
-clearInterval(interval);
-
-}
-
-counter.textContent=Math.max(seconds,0);
-
-},1000);
-
+  const iv = setInterval(() => {
+    s--;
+    el.textContent = Math.max(s, 0);
+    if (s <= 0) {
+      clearInterval(iv);
+      window.location.replace('https://www.youtube.com/watch?v=SS486HUj9yg');
+    }
+  }, 1000);
 </script>
 
 </body>
